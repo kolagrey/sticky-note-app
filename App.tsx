@@ -9,6 +9,7 @@ export default function App() {
   const [isDisabled, setIsDisabled] = React.useState(false);
   const [color, setColor] = React.useState('yellow');
   const [focusValue, setFocusValue] = React.useState(0);
+  const [activeNote, setActiveNote] = React.useState(null);
 
   const winMouseDown = (e) => {
     const id = (999999 * Math.random()).toFixed(0);
@@ -25,6 +26,7 @@ export default function App() {
       },
     };
     setStickyNotes((prev) => [newNote, ...prev]);
+    setActiveNote(id);
   };
 
   const winMouseUp = (e) => {
@@ -41,6 +43,13 @@ export default function App() {
     window.addEventListener('mouseup', winMouseUp);
   };
 
+  const onDeleteNote = () => {
+    if (activeNote && stickyNotes.length) {
+      setStickyNotes((notes) => notes.filter((note) => note.id !== activeNote));
+      setActiveNote(null);
+    }
+  };
+
   const onColorSelect = (e) => {
     setColor(e.target.value);
   };
@@ -53,6 +62,7 @@ export default function App() {
     <Layout>
       <NoteMenu
         onCreateNote={onCreateNote}
+        onDeleteNote={onDeleteNote}
         onColorSelect={onColorSelect}
         isButtonDisabled={isDisabled}
       />
@@ -60,6 +70,7 @@ export default function App() {
         stickyNotes={stickyNotes}
         setCurrentFocus={setCurrentFocus}
         focusValue={focusValue}
+        setActiveNote={setActiveNote}
       />
     </Layout>
   );

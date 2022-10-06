@@ -1,7 +1,12 @@
 import * as React from 'react';
 import StickyNote from './StickyNote';
 
-const StickyNotes = ({ stickyNotes, setCurrentFocus, focusValue }) => {
+const StickyNotes = ({
+  stickyNotes,
+  setCurrentFocus,
+  focusValue,
+  setActiveNote,
+}) => {
   return (
     <React.Fragment>
       {stickyNotes.map((stickyNote) => (
@@ -10,6 +15,7 @@ const StickyNotes = ({ stickyNotes, setCurrentFocus, focusValue }) => {
           stickyNote={stickyNote}
           currentFocus={focusValue}
           setCurrentFocus={setCurrentFocus}
+          setActiveNote={setActiveNote}
         />
       ))}
     </React.Fragment>

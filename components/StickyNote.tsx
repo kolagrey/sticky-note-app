@@ -1,9 +1,10 @@
 import * as React from 'react';
 
 function StickyNote({
-  stickyNote: { content, style },
+  stickyNote: { id, content, style },
   currentFocus,
   setCurrentFocus,
+  setActiveNote,
 }) {
   const stickyNoteRef = React.useRef(null);
   const editableNoteRef = React.useRef(null);
@@ -11,7 +12,6 @@ function StickyNote({
   const isResizing = React.useRef(false);
   const currentX = React.useRef(300);
   const currentY = React.useRef(50);
-
 
   const onStickyNoteMouseDown = (e) => {
     if (isResizing.current) return;
@@ -126,6 +126,7 @@ function StickyNote({
   const setNoteFocus = () => {
     stickyNoteRef.current.style.zIndex = currentFocus + 1;
     setCurrentFocus(currentFocus + 1);
+    setActiveNote(id);
   };
 
   return (
